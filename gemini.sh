@@ -2,16 +2,24 @@
 
 declare -a history=()
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[0;33m'
+CYAN='\033[0;36m'
+WHITE='\033[1;37m'
+MAGENTA='\033[0;35m'
+RESET='\033[0m'
 
 show_logo() {
-    echo ":'######:::'########:'##::::'##:'####:'##::: ##:'####:"
-    echo "'##... ##:: ##.....:: ###::'###:. ##:: ###:: ##:. ##::"
-    echo " ##:::..::: ##::::::: ####'####:: ##:: ####: ##:: ##::"
-    echo " ##::'####: ######::: ## ### ##:: ##:: ## ## ##:: ##::"
-    echo " ##::: ##:: ##...:::: ##. #: ##:: ##:: ##. ####:: ##::"
-    echo " ##::: ##:: ##::::::: ##:.:: ##:: ##:: ##:. ###:: ##::"
-    echo ". ######::: ########: ##:::: ##:'####: ##::. ##:'####:"
-    echo ":......::::........::..:::::..::....::..::::..::....::"
+    echo -e "${CYAN}:'######:::'########:'##::::'##:'####:'##::: ##:'####:${RESET}"
+    echo -e "${CYAN}'##... ##:: ##.....:: ###::'###:. ##:: ###:: ##:. ##::${RESET}"
+    echo -e "${CYAN} ##:::..::: ##::::::: ####'####:: ##:: ####: ##:: ##::${RESET}"
+    echo -e "${CYAN} ##::'####: ######::: ## ### ##:: ##:: ## ## ##:: ##::${RESET}"
+    echo -e "${CYAN} ##::: ##:: ##...:::: ##. #: ##:: ##:: ##. ####:: ##::${RESET}"
+    echo -e "${CYAN} ##::: ##:: ##::::::: ##:.:: ##:: ##:: ##:. ###:: ##::${RESET}"
+    echo -e "${CYAN}. ######::: ########: ##:::: ##:'####: ##::. ##:'####:${RESET}"
+    echo -e "${CYAN}:......::::........::..:::::..::....::..::::..::....::${RESET}"
 }
 
 send_message() {
@@ -38,9 +46,9 @@ send_message() {
             status=$(echo "$response_body" | jq -r '.status')
 
             if [ "$status" = "sucesso" ]; then
-            		echo ""
-                echo "$resposta"
-		            echo ""
+                echo ""
+                echo -e "${MAGENTA}$resposta${RESET}"
+                echo ""
 
                 history+=("$message")
                 history+=("$resposta")
@@ -48,22 +56,22 @@ send_message() {
             fi
         fi
     done
-	
+    
     echo ""
-    echo "Error: Could not connect to any port (5013, 5014, 5015)"
+    echo -e "${RED}Error: Could not connect to any port (5013, 5014, 5015)${RESET}"
     echo ""
     return 1
 }
 
 show_logo
-echo "Welcome to the chat interface! Type 'exit' to quit."
+echo -e "${BLUE}Welcome to the chat interface! Type 'exit' to quit.${RESET}"
 echo ""
 while true; do
-    echo -n "Prompt >>> "
+    echo -n -e "${YELLOW}Prompt >>> ${RESET}"
     read input
 
     if [ "$input" = "exit" ]; then
-        echo "Goodbye!"
+        echo -e "${RED}Goodbye!${RESET}"
         break
     fi
 
@@ -73,3 +81,4 @@ while true; do
 
     send_message "$input"
 done
+
