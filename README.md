@@ -1,5 +1,5 @@
 #	Chat API Client
-Descrição
+
 Este é um script Bash que funciona como um cliente para consumir uma API de chat hospedada em um servidor. O script permite enviar mensagens para a API, exibir as respostas formatadas e manter um histórico das mensagens enviadas e recebidas. Ele tenta conectar-se a uma das portas disponíveis (5013, 5014 ou 5015) para garantir redundância caso uma porta esteja indisponível.
 A interface é simples e interativa, semelhante à do Ollama, onde o usuário digita mensagens no formato Prompt >>> e recebe respostas da API com quebras de linha para melhor legibilidade. O script também exibe um logotipo ASCII ao ser iniciado.
 Funcionalidades
